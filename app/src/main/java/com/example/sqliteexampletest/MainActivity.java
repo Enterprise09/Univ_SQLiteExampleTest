@@ -56,25 +56,21 @@ public class MainActivity extends AppCompatActivity {
             db = helper.getWritableDatabase();
             switch (btnId) {
                 case R.id.btn_add:
-                    Toast.makeText(getApplicationContext(), "Add", Toast.LENGTH_SHORT).show();
                     db.execSQL("INSERT INTO mydb VALUES(null, 20010654, '홍길동', '컴퓨터', 18, 3);");
                     ctn = getDataCount();
                     tv_display.setText("레코드 추가 : " + ctn);
                     break;
                 case R.id.btn_update:
-                    Toast.makeText(getApplicationContext(), "Update", Toast.LENGTH_SHORT).show();
                     db.execSQL("UPDATE mydb SET name = '고길동'");
                     ctn = getDataCount();
                     tv_display.setText("레코드 갱신 : " + ctn);
                     break;
                 case R.id.btn_delete:
-                    Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_SHORT).show();
                     ctn = getDataCount();
                     db.execSQL("DELETE FROM mydb");
                     tv_display.setText("삭제된 레코드 수 : " + ctn);
                     break;
                 case R.id.btn_query:
-                    Toast.makeText(getApplicationContext(), "Query", Toast.LENGTH_SHORT).show();
                     int id;
                     int number;
                     int age;
