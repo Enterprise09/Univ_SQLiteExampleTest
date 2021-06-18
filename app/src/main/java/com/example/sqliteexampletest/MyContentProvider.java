@@ -1,6 +1,7 @@
 package com.example.sqliteexampletest;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,7 @@ import android.net.Uri;
 
 public class MyContentProvider extends ContentProvider {
 
+    static final Uri CONTENT_URI = Uri.parse("content://com.example.sqliteexampletest/mydb");
     SQLiteDatabase db;
 
     public MyContentProvider() {
@@ -28,8 +30,14 @@ public class MyContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        // TODO: Implement this to handle requests to insert a new row.
-        throw new UnsupportedOperationException("Not yet implemented");
+        long row = db.insert("mydb", null, values);
+        if(row < 0){    //Inserting Error
+            Uri result_uri = ContentUris.withAppendedId(CONTENT_URI, row);
+            getContext().getContentResolver().notifyChange(result_uri, null);
+            return result_uri;
+        }
+
+        return null;
     }
 
     @Override
