@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         tv_display.append("department : " + department + "\n");
                         tv_display.append("age : " + age + "\n");
                         tv_display.append("grade : " + grade + "\n");
-                        tv_display.append("-------------------\n");
+                        tv_display.append("--------------------------------------\n");
                     }
                     tv_display.append("Total : " + ctn);
                     break;
