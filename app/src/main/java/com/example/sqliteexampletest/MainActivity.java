@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         btn_update.setOnClickListener(listener);
         btn_delete.setOnClickListener(listener);
         btn_query.setOnClickListener(listener);
-
     }//end of onCreate()
 
     View.OnClickListener listener = new View.OnClickListener() {

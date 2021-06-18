@@ -55,7 +55,6 @@
         android:layout_margin="20dp"
         android:background="@drawable/solidborad"
         android:padding="10dp"
-        android:text="TextView"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
