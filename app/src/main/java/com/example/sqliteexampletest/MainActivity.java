@@ -43,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
     }//end of onCreate()
 
+    public int getDataCount(){
+        int result;
+        cursor = db.rawQuery("SELECT * FROM mydb", null);
+        result = cursor.getCount();
+        return result;
+    }//end of getDataCount()
+
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -55,21 +62,18 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.btn_add:
                     Toast.makeText(getApplicationContext(), "Add", Toast.LENGTH_SHORT).show();
                     db.execSQL("INSERT INTO mydb VALUES(null, 20010654, '홍길동', '컴퓨터', 18, 3);");
-                    cursor = db.rawQuery("SELECT * FROM mydb", null);
-                    ctn = cursor.getCount();
+                    ctn = getDataCount();
                     tv_display.setText("레코드 추가 : " + ctn);
                     break;
                 case R.id.btn_update:
                     Toast.makeText(getApplicationContext(), "Update", Toast.LENGTH_SHORT).show();
                     db.execSQL("UPDATE mydb SET name = '고길동'");
-                    cursor = db.rawQuery("SELECT * FROM mydb", null);
-                    ctn = cursor.getCount();
+                    ctn = getDataCount();
                     tv_display.setText("레코드 갱신 : " + ctn);
                     break;
                 case R.id.btn_delete:
                     Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_SHORT).show();
-                    cursor = db.rawQuery("SELECT * FROM mydb", null);
-                    ctn = cursor.getCount();
+                    ctn = getDataCount();
                     db.execSQL("DELETE FROM mydb");
                     tv_display.setText("삭제된 레코드 수 : " + ctn);
                     break;
@@ -101,9 +105,8 @@ public class MainActivity extends AppCompatActivity {
                         tv_display.append("-------------------\n");
                     }
                     tv_display.append("Total : " + ctn);
-
                     break;
-            }
-        }
+            }//end of switch
+        }//end of onClick()
     };//end of listener
 }//end of MainActivity class
