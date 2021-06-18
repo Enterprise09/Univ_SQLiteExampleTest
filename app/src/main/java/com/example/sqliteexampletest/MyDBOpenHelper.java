@@ -19,7 +19,7 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "CREATE TABLE mydb (" +
-                        "id number, " +
+                        "id number PRIMARY KEY AUTOINCREMENT, " +
                         "number number, " +
                         "name char, " +
                         "department char, " +
