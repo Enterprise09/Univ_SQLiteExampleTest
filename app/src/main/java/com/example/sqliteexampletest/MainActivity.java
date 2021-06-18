@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db;
     Button btn_add, btn_update, btn_delete, btn_query;
     TextView tv_display;
-    ContentResolver cr;
     Cursor cursor;
     int ctn = 0;
 
@@ -41,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
         btn_update.setOnClickListener(listener);
         btn_delete.setOnClickListener(listener);
         btn_query.setOnClickListener(listener);
-
-        cr = getContentResolver();
 
     }//end of onCreate()
 
