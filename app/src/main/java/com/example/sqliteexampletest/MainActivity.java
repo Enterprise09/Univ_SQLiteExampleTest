@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         btn_delete.setOnClickListener(listener);
         btn_query.setOnClickListener(listener);
 
-    }
+    }//end of onCreate()
 
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
@@ -50,5 +50,5 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
-    };
-}
+    };//end of listener
+}//end of MainActivity class
