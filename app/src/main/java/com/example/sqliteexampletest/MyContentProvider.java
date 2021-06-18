@@ -3,9 +3,13 @@ package com.example.sqliteexampletest;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
 public class MyContentProvider extends ContentProvider {
+
+    SQLiteDatabase db;
+
     public MyContentProvider() {
     }
 
@@ -30,7 +34,8 @@ public class MyContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        // TODO: Implement this to initialize your content provider on startup.
+        MyDBOpenHelper helper = new MyDBOpenHelper(getContext(), "mydb", null, 1);
+        db = helper.getWritableDatabase();
         return false;
     }
 

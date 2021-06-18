@@ -17,7 +17,14 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(
+                "CREATE TABLE mydb (" +
+                        "id number, " +
+                        "number number, " +
+                        "name char, " +
+                        "department char, " +
+                        "age number, " +
+                        "grade number);");
     }
 
     @Override
