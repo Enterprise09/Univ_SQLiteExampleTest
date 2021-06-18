@@ -17,6 +17,7 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //create 'mydb' table use autoincrement keyword
         db.execSQL(
                 "CREATE TABLE mydb (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT, " +

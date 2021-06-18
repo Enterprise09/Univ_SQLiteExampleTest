@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         btn_delete = (Button) findViewById(R.id.btn_delete);
         btn_query = (Button) findViewById(R.id.btn_query);
         tv_display = (TextView) findViewById(R.id.tv_display);
-        tv_display.setMovementMethod(new ScrollingMovementMethod());
+        tv_display.setMovementMethod(new ScrollingMovementMethod());    //add scrollbar to text view
 
         btn_add.setOnClickListener(listener);
         btn_update.setOnClickListener(listener);
