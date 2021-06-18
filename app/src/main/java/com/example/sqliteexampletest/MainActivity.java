@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final String CONTENT_URI = "content://com.example.sqliteexampletest/mydb";
-
     SQLiteDatabase db;
     Button btn_add, btn_update, btn_delete, btn_query;
     TextView tv_display;
@@ -54,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int btnId = v.getId();
-            ContentValues row = new ContentValues();
-            Uri content_uri = Uri.parse(CONTENT_URI);
             MyDBOpenHelper helper = new MyDBOpenHelper(getApplicationContext(), "mydb", null, 1);
             db = helper.getWritableDatabase();
             switch (btnId) {
