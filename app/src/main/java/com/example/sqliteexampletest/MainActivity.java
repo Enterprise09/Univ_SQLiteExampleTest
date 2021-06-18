@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,9 +18,12 @@ public class MainActivity extends AppCompatActivity {
 
     static final String CONTENT_URI = "content://com.example.sqliteexampletest/mydb";
 
+    SQLiteDatabase db;
     Button btn_add, btn_update, btn_delete, btn_query;
     TextView tv_display;
-    public ContentResolver cr;
+    ContentResolver cr;
+    Cursor cursor;
+    int ctn = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         btn_delete = (Button) findViewById(R.id.btn_delete);
         btn_query = (Button) findViewById(R.id.btn_query);
         tv_display = (TextView) findViewById(R.id.tv_display);
+        tv_display.setMovementMethod(new ScrollingMovementMethod());
 
         btn_add.setOnClickListener(listener);
         btn_update.setOnClickListener(listener);
@@ -45,25 +52,59 @@ public class MainActivity extends AppCompatActivity {
             int btnId = v.getId();
             ContentValues row = new ContentValues();
             Uri content_uri = Uri.parse(CONTENT_URI);
+            MyDBOpenHelper helper = new MyDBOpenHelper(getApplicationContext(), "mydb", null, 1);
+            db = helper.getWritableDatabase();
             switch (btnId) {
                 case R.id.btn_add:
                     Toast.makeText(getApplicationContext(), "Add", Toast.LENGTH_SHORT).show();
-                    row.put("number", 200106054);
-                    row.put("name", "홍길동");
-                    row.put("department", "컴퓨터");
-                    row.put("age", 18);
-                    row.put("grade", 3);
-                    cr.insert(content_uri, row);
-                    tv_display.setText("레코드 추가 : 1");
+                    db.execSQL("INSERT INTO mydb VALUES(null, 20010654, '홍길동', '컴퓨터', 18, 3);");
+                    cursor = db.rawQuery("SELECT * FROM mydb", null);
+                    ctn = cursor.getCount();
+                    tv_display.setText("레코드 추가 : " + ctn);
                     break;
                 case R.id.btn_update:
                     Toast.makeText(getApplicationContext(), "Update", Toast.LENGTH_SHORT).show();
+                    db.execSQL("UPDATE mydb SET name = '고길동'");
+                    cursor = db.rawQuery("SELECT * FROM mydb", null);
+                    ctn = cursor.getCount();
+                    tv_display.setText("레코드 갱신 : " + ctn);
                     break;
                 case R.id.btn_delete:
                     Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_SHORT).show();
+                    cursor = db.rawQuery("SELECT * FROM mydb", null);
+                    ctn = cursor.getCount();
+                    db.execSQL("DELETE FROM mydb");
+                    tv_display.setText("삭제된 레코드 수 : " + ctn);
                     break;
                 case R.id.btn_query:
                     Toast.makeText(getApplicationContext(), "Query", Toast.LENGTH_SHORT).show();
+                    int id;
+                    int number;
+                    int age;
+                    int grade;
+                    String name;
+                    String department;
+                    cursor = db.rawQuery("SELECT * FROM mydb", null);
+                    ctn = cursor.getCount();
+                    tv_display.setText("");
+                    while(cursor.moveToNext()){
+                        id = cursor.getInt(0);
+                        number = cursor.getInt(1);
+                        name = cursor.getString(2);
+                        department = cursor.getString(3);
+                        age = cursor.getInt(4);
+                        grade = cursor.getInt(5);
+
+                        tv_display.append("id : " + id + "\n");
+                        tv_display.append("number : " + number + "\n");
+                        tv_display.append("name : " + name + "\n");
+                        tv_display.append("department : " + department + "\n");
+                        tv_display.append("age : " + age + "\n");
+                        tv_display.append("grade : " + grade + "\n");
+                        tv_display.append("-------------------\n");
+                    }
+                    tv_display.append("Total : " + ctn);
+
                     break;
             }
         }
